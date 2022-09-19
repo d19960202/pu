@@ -4,23 +4,18 @@ import fetcher from "./fetcher";
 
 
 
+const App = function App () {
+  const { data } = useSWR('/youbike.json', fetcher)
 
-function Dashboard () {
-  const { data: events } = useSWR('/youbike.json')
+  if (!data) return 
+  {
+    data.map(() => {
+        <p> {data}</p>
+    })
+  }
+  console.log(data);
 }
 
-function App () {
-  return (
-    <SWRConfig 
-      value={{
-        refreshInterval: 3000,
-        fetcher: (resource, init) => fetch(resource, init).then(res => res.json())
-      }}
-    >
-      <Dashboard />
-    </SWRConfig>
-  )
-}
 
 
 
@@ -79,8 +74,6 @@ function App () {
 //       {data.map(item => <div key={item.id}>{item.name}</div>)}
 //     </div>
 //   }
-
-
 
 
 export default App;
