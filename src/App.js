@@ -5,16 +5,17 @@ import fetcher from "./fetcher";
 
 
 const App = function App () {
-  const { data } = useSWR('/youbike.json', fetcher)
+  const { data } = useSWR('./youbike.json', fetcher);
 
   if (!data) return 
   {
-    data.map(() => {
-        <p> {data}</p>
-    })
-  }
-  console.log(data);
-}
+
+    data.map((item) =>{
+      return
+      <p> {item} </p>
+    })};
+
+};
 
 
 
