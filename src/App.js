@@ -1,5 +1,6 @@
 import useSWR, { SWRConfig } from 'swr'
 import fetcher from "./fetcher";
+// import Item from "./item"
 // import fetch from 'unfetch'
 
 
@@ -7,15 +8,25 @@ import fetcher from "./fetcher";
 const App = function App () {
   const { data } = useSWR('./youbike.json', fetcher);
 
-  if (!data) return 
-  {
-
+  if (!data) return
+{
     data.map((item) =>{
-      return
-      <p> {item} </p>
-    })};
+      return [
+      <p> {item.sno} </p>,
+      <p> {item.sna} </p>,
+      <p> {item.sarea} </p>,
+      <p> {item.mday} </p>,
+      <p> {item.ar} </p>,
+      <p> {item.snaen} </p>,
+      <p> {item.aren} </p>,
+      console.log(item.sno)
+      ]
+    })}
+  
 
-};
+    
+}
+
 
 
 
