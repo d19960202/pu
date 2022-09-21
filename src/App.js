@@ -1,17 +1,19 @@
 import useSWR, { SWRConfig } from 'swr'
-import fetcher from "./fetcher";
+// import fetcher from "./fetcher";
 // import Item from "./item"
 // import fetch from 'unfetch'
+
+const fetcher = (...args) => fetch(...args).then(res => res.json());
 
 
 
 const App = function App () {
-  const { data } = useSWR('./youbike.json', fetcher);
+  const { data } = useSWR('https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json', fetcher);
 
   if (!data) return
 {
     data.map((item) =>{
-      return [
+      return <>
       <p> {item.sno} </p>,
       <p> {item.sna} </p>,
       <p> {item.sarea} </p>,
@@ -19,13 +21,13 @@ const App = function App () {
       <p> {item.ar} </p>,
       <p> {item.snaen} </p>,
       <p> {item.aren} </p>,
-      console.log(item.sno)
-      ]
+      </>
     })}
-  
+  console.log(data);
 
     
 }
+
 
 
 
