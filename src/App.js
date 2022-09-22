@@ -23,18 +23,20 @@ function App ()
       <thead>
 
         <tr>
-          <th> sno </th>
-          <th> sna </th>
-          <th> tot </th>
-          <th> sbi </th>
-          <th> sarea </th>
-          <th> mday </th>
-          <th> lat </th>
-          <th> lng </th>
-          <th> ar </th>
-          <th> sareaen </th>
-          <th> snaen </th>
-          <th> aren </th>
+          <th> 站點代號 </th>
+          <th> 中文場站名稱 </th>
+          <th> 場站總停車格 </th>
+          <th> 可借車位數 </th>
+          <th> 中文場站區域 </th>
+          <th> 資料更新時間 </th>
+          <th> 緯度 </th>
+          <th> 經度 </th>
+          <th> 中文地址 </th>
+          <th> 英文場站區域 </th>
+          <th> 英文場站名稱 </th>
+          <th> 英文地址 </th>
+          <th> 可還空位數 </th>
+          <th> 場站是否暫停營運 </th>
         </tr>
 
       </thead>
@@ -54,6 +56,8 @@ function App ()
           <td> {item.sareaen} </td>
           <td> {item.snaen} </td>
           <td> {item.aren} </td>
+          <td> {item.bemp} </td>
+          <td> {item.act} </td>
 
         </tr>
       </tbody>
