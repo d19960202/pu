@@ -1,3 +1,4 @@
+// import {useState} from 'react';
 import useSWR from 'swr' ;
 import "./App.css";
 // import fetcher from "./fetcher";
@@ -6,19 +7,24 @@ import "./App.css";
 
 const fetcher = (...args) => fetch(...args).then(res => res.json());
 
+const App = () => 
+{ 
+const { data } = useSWR('https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json', fetcher);
 
-// const search = document.getElementById('search')
+    const searchBtn = document.querySelector('.searchBtn');
+        searchBtn.addEventListener('click',findMatch);
 
-const App = function Key () 
-{const { data } = useSWR('https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json', fetcher);
+  if (!data) return <div>loading...</div>;
 
-if (!data) return <div>loading...</div>;
-let se = data.filter(function(value){
-  return value.sno === '大安' ;
-});
+  function findMatch (wordToMatch) {
+    return data.filter((item) => {
+      let regex = new RegExp(wordToMatch, 'gi');
+      return item.sarea.match(regex); 
+    });
+  }
 
 return <div>
-{se.map((item ) => 
+{.map((item ) => 
       { 
       return<div>
       <table>
@@ -71,11 +77,12 @@ return <div>
       })}
   
    </div>
-  }
+  };
   
-  // const App = Map.filter(function(element, index){ 
-  //   return Map.indexOf(element) === '大安'  ; }); 
   
+  
+
+
   
   
   // const App = function App () 
