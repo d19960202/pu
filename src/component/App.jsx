@@ -1,30 +1,37 @@
 // import {useState} from 'react';
+import { useState } from 'react';
 import useSWR from 'swr' ;
 import "./App.css";
-// import fetcher from "./fetcher";
-// import Item from "./item"
-// import fetch from 'unfetch'
 
 const fetcher = (...args) => fetch(...args).then(res => res.json());
 
 const App = () => 
 { 
-const { data } = useSWR('https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json', fetcher);
-
-    const searchBtn = document.querySelector('.searchBtn');
-        searchBtn.addEventListener('click',findMatch);
+  const [keywoed ,setKeyword] = useState ('') ;
+  const [filtered , setFilter] = useState ([]) ;
+  const { data } = useSWR('https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json', fetcher);
 
   if (!data) return <div>loading...</div>;
 
-  function findMatch (wordToMatch) {
-    return data.filter((item) => {
-      let regex = new RegExp(wordToMatch, 'gi');
-      return item.sarea.match(regex); 
-    });
-  }
+  function handleChange (e) {
+    setKeyword(e.target.value)
+  };
 
-return <div>
-{.map((item ) => 
+const search = () =>{
+  const filter = data.filter ((ff) => {
+    let Regex = new RegExp( function () {
+        return ff.sarea = Regex.test(keywoed)
+    });
+  });
+  setFilter(filter);
+ } ;
+
+return(
+<div>
+  <input type = 'text' onchange ={handleChange} /> 
+  <button onClick={search}> 搜尋 </button> 
+  <div>
+    {filtered.map((item ) => 
       { 
       return<div>
       <table>
@@ -76,7 +83,9 @@ return <div>
   
       })}
   
-   </div>
+    </div>
+   </div>);
+
   };
   
   
