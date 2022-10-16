@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useEffect, useState } from 'react';
 import useSWR from 'swr' ;
 import "./App.css";
 
@@ -10,12 +10,12 @@ const App = () =>
   const [filtered , setFilter] = useState ([]) ;
   const { data } = useSWR('https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json', fetcher);
 
-  // useEffect(()=>{
-  //   if (keyword.length === 0 ) {
-  //     return data
-  //   }
-  // }
-  // );
+  useEffect(()=>{
+    if (keyword.length === 0 ) {
+      return data
+    }
+  }
+  ); 
 
   if (!data) return <div>loading...</div>;
 
@@ -26,7 +26,7 @@ const App = () =>
   const search = () =>{
     let reg = new RegExp (keyword) ; 
     let filter = data.filter (function (ff) {
-    return ff.sna = reg.test();
+    return reg.test(ff.sarea);
     });
     setFilter(filter);
   };
@@ -51,8 +51,6 @@ const App = () =>
               <th> 可借車位數 </th>
               <th> 中文場站區域 </th>
               <th> 資料更新時間 </th>
-              <th> 緯度 </th>
-              <th> 經度 </th>
               <th> 中文地址 </th>
               <th> 英文場站區域 </th>
               <th> 英文場站名稱 </th>
@@ -67,13 +65,10 @@ const App = () =>
     
           <tr>
               <td> {item.sno} </td>
-              <td> {item.sna} </td>
-              <td> {item.tot} </td>
+              <td><a href='http://maps.google.com/?q={item.lat},{item.lng}' target="_blank"> {item.sna}</a></td> 
               <td> {item.sbi} </td>
               <td> {item.sarea} </td>
               <td> {item.mday} </td>
-              <td> {item.lat} </td>
-              <td> {item.lng} </td>
               <td> {item.ar} </td>
               <td> {item.sareaen} </td>
               <td> {item.snaen} </td>
