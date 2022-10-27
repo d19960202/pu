@@ -8,20 +8,27 @@ const App = () =>
 { 
   const [keyword ,setKeyword] = useState ('') ;
   const [filtered , setFilter] = useState ([]) ;
+  const [ station ,setSation ] = useState ([]);
   const { data } = useSWR('https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json', fetcher);
+  
 
-  useEffect(()=>{
-    if (keyword.length === 0 ) {
-      return data
-    }
-  }
-  ); 
+  useEffect (() => {
+    const origin = () => { if (keyword.length === 0) {
+        return <p>輸入站點資料</p>
+    }};
+    setSation(origin)
+  },[keyword])
+
 
   if (!data) return <div>loading...</div>;
+
+
 
   function handleChange (e) {
     setKeyword(e.target.value)
   };
+
+  
 
   const search = () =>{
     let reg = new RegExp (keyword) ; 
@@ -33,10 +40,13 @@ const App = () =>
 
   return(
   <div>
+    
     <input type = 'text' value={keyword} onChange ={handleChange} /> 
 
     <button onClick={search}> 搜尋 </button> 
-
+    
+    <div> {station} </div>
+    
     <div>
       {filtered.map((item ) => 
         { 
@@ -65,7 +75,7 @@ const App = () =>
     
           <tr>
               <td> {item.sno} </td>
-              <td><a href='http://maps.google.com/?q={item.lat},{item.lng}' target="_blank"> {item.sna}</a></td> 
+              <td><a href='https://www.google.com.tw/maps/place/{item.ar}' target="_blank"> {item.sna}</a></td> 
               <td> {item.sbi} </td>
               <td> {item.sarea} </td>
               <td> {item.mday} </td>
@@ -87,8 +97,7 @@ const App = () =>
     
       </div>
     </div>);
-
-    };
+};
   
   
   
